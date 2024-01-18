@@ -36,7 +36,7 @@ def test_FastaParser():
     fasta = FastaParser("data/test.fa")
     # Check that get_record returns a generator with values (header, sequence)
     for header, sequence in fasta.get_record(open(fasta.filename)):
-      assert header != not None
+      assert header != None
       assert sequence != None
     # Check that the first entry of the example fasta file is correctly read.
     header0, sequence0 = list(fasta)[0]
@@ -46,10 +46,10 @@ def test_FastaParser():
     # Test that badly-formatted fasta raises a ValueError
     # Empty lines not allowed, although most fasta parsers will allow them between entries
     with pytest.raises(ValueError) as excinfo:
-        bad = FastaParser("bad.fa")
+        bad = list(FastaParser("tests/bad.fa"))
     # Test that empty fasta raises a ValueError
     with pytest.raises(ValueError) as excinfo:
-        empty = FastaParser("blank.fa")
+        empty = list(FastaParser("tests/blank.fa"))
 
 
 def test_FastaFormat():
@@ -76,17 +76,17 @@ def test_FastqParser():
       assert sequence != None
       assert quality != None
     # Check that the first entry of the example fastq file is correctly read.
-    header0, sequence0, quality0 = list(fasta)[0]   
+    header0, sequence0, quality0 = list(fastq)[0]   
     assert header0 == 'seq0'
     assert sequence0 == 'TGTGGTCGTATAGTTATTGTCATAAATTACACAGAATCGCGATTCTCCGCGTCCACCAATCTTAGTGCACCACAGCATCGACCCGATTTATGACGCTGAG'
     assert quality0 == """*540($=*,=.062565,2>'487')!:&&6=,6,*7>:&132&83*8(58&59>'8!;28<94,0*;*.94**:9+7"94(>7='(!5"2/!%"4#32="""
 
     # Test that badly-formatted fastq raises a ValueError
     with pytest.raises(ValueError) as excinfo:
-        bad = FastqParser("bad.fq")
+        bad = list(FastqParser("tests/bad.fq"))
     # Test that empty fastq raises a ValueError
     with pytest.raises(ValueError) as excinfo:
-        empty = FastqParser("blank.fq")
+        empty = list(FastqParser("tests/blank.fq"))
 
 
 

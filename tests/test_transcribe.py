@@ -3,6 +3,7 @@
 from seqparser import (
         transcribe,
         reverse_transcribe)
+import pytest
 
 
 def test_freebie_transcribe_1():
