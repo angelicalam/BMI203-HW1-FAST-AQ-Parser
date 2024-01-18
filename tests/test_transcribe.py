@@ -25,11 +25,27 @@ def test_transcribe():
     """
     Write your unit test for the transcribe function here.
     """
-    pass
+    # Check that transcribe raises a ValueError if an invalid sequence is given
+    # Ambiguous bases are not accepted
+    with pytest.raises(ValueError) as excinfo:
+        bad = transcribe('AGX!TC')
+    # Check that transcribe raises a ValueError if no sequence is given
+    with pytest.raises(ValueError) as excinfo:
+        blank = transcribe(None)
+    # Check that transcribe performs as expected with a validated example
+    assert transcribe('ACTGAACCC') == 'UGACUUGGG' 
 
 
 def test_reverse_transcribe():
     """
     Write your unit test for the reverse transcribe function here.
     """
-    pass
+    # Check that reverse_transcribe raises a ValueError if an invalid sequence is given
+    # Ambiguous bases are not accepted
+    with pytest.raises(ValueError) as excinfo:
+        bad = reverse_transcribe('AGX!TC')
+    # Check that reverse_transcribe raises a ValueError if no sequence is given
+    with pytest.raises(ValueError) as excinfo:
+        blank = reverse_transcribe(None)
+    # Check that reverse_transcribe performs as expected with a validated example
+    assert reverse_transcribe('ACTGAACCC') == 'GGGUUCAGU'
